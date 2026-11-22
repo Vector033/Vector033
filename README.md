@@ -28,7 +28,7 @@ I build web apps end to end, put them online, and measure whether they work. Fiv
 ### PingKhana: scholarship, co-op and job deadlines on the web and LINE
 
 <a href="https://pingkhana.vercel.app">
-  <img src="https://vector033.github.io/img/pingkhana-home-1280.webp" alt="PingKhana home page: scholarships, co-op, jobs and events that are open now, with the ones closing soonest listed first." width="100%" />
+  <img src="https://vector033.github.io/img/pingkhana-home-1280.webp" alt="PingKhana home page: scholarships, co-op, jobs and events that are open now, with a big countdown on the one closing soonest." width="100%" />
 </a>
 
 - A FastAPI collector reads CMU faculty sites and education news every hour. It follows robots.txt, retries on 5xx and 429, and merges an announcement posted on several sites into one. It has collected 611 announcements.
