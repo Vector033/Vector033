@@ -12,15 +12,15 @@ I build web apps end to end, put them online, and measure whether they work. Fiv
 
 ## Featured
 
-### MorPlan: CMU timetable planner and Thai regulation Q&A
+### MorPlan: timetable planner and rule Q&A for any Thai university
 
 <a href="https://morplan.vercel.app">
   <img src="https://vector033.github.io/img/morplan-planner-1600.webp" alt="MorPlan week grid with five courses placed; two classes overlap and are marked in red, and an alert names the clash." width="100%" />
 </a>
 
-- Drag courses onto a week grid, or place them from the keyboard. Class, midterm, final and duplicate clashes show at once.
-- Compare plans A to E side by side, share a read-only link, and export to .ics or PNG.
-- Ask the university's regulations in Thai: every answer cites the document and page. On a 170-question eval, the right page is in the top 5 for 90.3% of answerable questions, and the answer-or-"not found" call is right 78.8% of the time on a held-out split.
+- Drag courses onto a week grid or place them from the keyboard. Class, midterm, final and duplicate clashes show at once; plans A to E compare side by side and export to .ics or PNG.
+- Works for the 77 universities in the TCAS list. The browser reads your pasted course table, so MorPlan never asks for your registration password.
+- Ask the university's regulations in Thai: every answer cites the document and page. On a 170-question eval, the right page is in the top 5 for 90.3% of answerable questions, and the answer-or-"not found" call is right 78.8% of the time on a held-out split. Hybrid search scored a little higher (91.7% top 5), but its embedding model is too big for a Vercel function, so production runs BM25 at about 1 ms a question.
 
 **Tools:** Next.js 16, TypeScript, Tailwind CSS, dnd-kit, Supabase, Drizzle, Vitest + fast-check, Playwright<br/>
 **Links:** [Live app](https://morplan.vercel.app)
@@ -31,9 +31,9 @@ I build web apps end to end, put them online, and measure whether they work. Fiv
   <img src="https://vector033.github.io/img/pingkhana-home-1280.webp" alt="PingKhana home page: 352 announcements from 13 sites and a list of the ones closing soonest." width="100%" />
 </a>
 
-- A FastAPI collector reads 13 sources (CMU faculty sites and education news) every hour, follows robots.txt, and merges an announcement posted on several sites into one. It has gathered 352 announcements.
-- Gemini reads closing dates from text, posters and PDFs. The LINE bot reminds you 3 days and 1 day before a deadline, and deadlines export to .ics or Google Calendar.
-- It grew from a CMU-only bot after a teacher asked for school news. Anyone can add a source by pasting a link (SSRF-guarded, admin-approved).
+- A FastAPI collector reads CMU faculty sites and education news every hour. It follows robots.txt, retries on 5xx and 429, and merges an announcement posted on several sites into one. It has collected 611 announcements.
+- Gemini reads closing dates from text, posters and PDFs, and a rule-based extractor takes over when Gemini fails. On 34 real held-out passages the rules scored 94.1% on a blind run, ahead of Gemini at 91.2%.
+- LINE's free plan allows 300 pushes a month, so the bot sends one digest a day and saves the rest for reminders 3 days and 1 day before a deadline. Anyone can add a source by pasting a link (public hosts only, admin-approved).
 
 **Tools:** Python 3.12, FastAPI, SQLAlchemy 2, PostgreSQL, Next.js 16, LINE LIFF, Gemini, pytest<br/>
 **Links:** [Live site](https://pingkhana.vercel.app)
@@ -45,9 +45,9 @@ I build web apps end to end, put them online, and measure whether they work. Fiv
 | Project | Description | Tools | Demo |
 | --- | --- | --- | --- |
 | [Project Z](https://github.com/NexusG0/Project-Z) | Multi-tenant AI chat widget for a client, in a team of four. I was the Software Architect: three FastAPI services, Firestore schema, JWT auth and real-time Gemini chat. All 22 user stories delivered with client sign-off. | FastAPI, Vue 3, SSE, Redis, Firestore, Docker | — |
-| FactFit | Tailors a résumé to a job posting without inventing facts. A code-based guard blocked 164 of 172 made-up claims on a blind held-out set. | Next.js 16, Supabase, Drizzle, Gemini, Vitest | [Live](https://factfit-five.vercel.app) |
-| HarnKan | Splits trip costs in real time, makes PromptPay QR codes and reads the payment slip. 0 wrong auto-ticks on 60 synthetic slips. | Next.js 16, Supabase Realtime + RLS, PWA | [Live](https://harnkan-ten.vercel.app) |
-| SlipJot | Logs expenses from photos of Thai bank slips. 93% of held-out synthetic slips fully correct, and unsure reads go to a review queue (0% silent errors). | Next.js 16, Supabase, tesseract.js, Gemini | [Live](https://slipjot.vercel.app) |
+| ProofMyCV (formerly FactFit) | Tailors a résumé to each job posting without inventing facts. A code-based guard blocked 164 of 172 made-up claims on a blind held-out set and kept 24 of 30 honest bullets. Job links are fetched with an SSRF check on every redirect. | Next.js 16, Supabase, Drizzle, Gemini, Vitest | [Live](https://proofmycv.vercel.app) |
+| HarnKan | Splits trip costs in real time, makes PromptPay QR codes and reads the payment slip: 92% auto-ticked and 0 wrong on 60 synthetic slips. Works offline and settles in the fewest transfers (exact up to 16 people). | Next.js 16, Supabase Realtime + RLS, PWA | [Live](https://harnkan-ten.vercel.app) |
+| SlipJot | Logs expenses from photos of Thai bank slips. 93% of held-out synthetic slips fully correct, and unsure reads go to a review queue (0% silent errors). Only 13 of 381 slips needed an LLM to pick a category. | Next.js 16, Supabase, tesseract.js, Gemini | [Live](https://slipjot.vercel.app) |
 
 The source code of my solo projects is private for now; the live apps have demo accounts.
 
